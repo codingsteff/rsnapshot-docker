@@ -18,8 +18,12 @@ verbose		1
 loglevel	3
 logfile		/var/log/rsnapshot
 lockfile	/var/run/rsnapshot.pid
-backup		${BACKUP_SOURCE}	${BACKUP_NAME}/	${BACKUP_OPTS}
 EOF
+
+if [ "${BACKUP_SOURCE}" -gt 0 ]
+then
+  echo "backup	${BACKUP_SOURCE}	${BACKUP_NAME}/	${BACKUP_OPTS}">> /etc/rsnapshot.conf
+fi
 
 # prepare crontab for root
 touch /etc/crontabs/root
