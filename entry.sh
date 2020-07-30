@@ -16,8 +16,12 @@ cmd_ssh		/usr/bin/ssh
 ssh_args	-i /ssh-id -o StrictHostKeychecking=no ${BACKUP_SSH_ARGS}
 verbose		1
 lockfile	/var/run/rsnapshot.pid
-backup		${BACKUP_SOURCE}	${BACKUP_NAME}/	${BACKUP_OPTS}
 EOF
+
+if [ "${BACKUP_SOURCE}" -gt 0 ]
+then
+  echo "backup	${BACKUP_SOURCE}	${BACKUP_NAME}/	${BACKUP_OPTS}">> /etc/rsnapshot.conf
+fi
 
 # prepare crontab for root
 touch /etc/crontabs/root

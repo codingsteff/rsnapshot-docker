@@ -35,7 +35,7 @@ Environment
 This is the name of the backup source you are backing up. Default is `localhost` and it will be used as the name of the subfolder (under the `daily.X` etc folders) in the `/backup` volume.
 
 **`BACKUP_SOURCE`**
-This is the name of the backup source you are backing up. Default is `/data` which matches the name of the expected volume for local backups; for remote server backups the syntax should be `user@server:/folder`.
+This is the name of the backup source you are backing up. Default is `/data` which matches the name of the expected volume for local backups; for remote server backups the syntax should be `user@server:/folder`. If you use `backup.cfg`, you can set it to an empty value.
 
 **`BACKUP_OPTS`**
 This allows you to add further `rsnapshot` options to the backup. The default value is `one_fs=1` which will make the backup not cross over filesystems.
@@ -111,7 +111,7 @@ docker run -d -v $HOME/.ssh/id_rsa:/ssh-id \
            helmuthb/rsnapshot
 ```
 
-Add a local configuration file `backup.cfg` with more backups:
+Add a local configuration file `backup.cfg` with multiple backups:
 ```
 backup		/etc	etc-folder/
 backup		/boot	boot-folder/
@@ -119,5 +119,5 @@ backup		/home	home-folder/
 ```
 ```
 docker run -d -v backup.cfg:/backup.cfg -v /srv/backup:/backup \
-           -e BACKUP_NAME=root -e BACKUP_SOURCE=/ helmuthb/rsnapshot
+           -e BACKUP_NAME=root -e BACKUP_SOURCE= helmuthb/rsnapshot
 ```
